@@ -1,0 +1,26 @@
+from flask import Flask, render_template, request, jsonify
+
+app = Flask(_name_)
+
+# Simple bot logic
+def get_bot_response(user_input):
+    user_input = user_input.lower()
+    if "hello" in user_input:
+        return "Hi there! How can I help you?"
+    elif "bye" in user_input:
+        return "Goodbye! Have a nice day!"
+    else:
+        return "I'm a simple chatbot. Please ask something else."
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+@app.route("/chat", methods=["POST"])
+def chat():
+    user_message = request.json.get("message")
+    response = get_bot_response(user_message)
+    return jsonify({"response": response})
+
+if _name_ == "_main_":
+    app.run(debug=True)
